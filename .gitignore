@@ -1,0 +1,19 @@
+# Python
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+
+# Airflow
+logs/
+airflow.cfg
+*.db
+*.sqlite
+
+# Data
+data/scraping/*.csv
+data/processed/*.csv
+
+# Docker
+*.log
+.docker-compose.override.yml

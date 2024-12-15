@@ -1,0 +1,6 @@
+matplotlib
+seaborn
+wordcloud
+transformers
+torch
+
