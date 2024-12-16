@@ -53,14 +53,15 @@ def preprocess_video_data(**kwargs):
 
     # Save processed data
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    processed_file_path = os.path.join(PROCESSED_DIR, f"video_data_processed_{timestamp}.csv")
+    processed_file_path = os.path.join(
+        PROCESSED_DIR, f"video_data_processed_{timestamp}.csv"
+    )
     video_df.to_csv(processed_file_path, index=False)
 
     # Push file path to XCom
-    ti = kwargs['ti']
-    ti.xcom_push(key='processed_file_path', value=processed_file_path)
+    ti = kwargs["ti"]
+    ti.xcom_push(key="processed_file_path", value=processed_file_path)
     return processed_file_path  # Optional for debug purposes
-
 
 
 # Define the DAG
@@ -79,15 +80,17 @@ with DAG(
     catchup=False,
 ) as dag:
     preprocess_video_task = PythonOperator(
-        task_id='preprocess_video_data',
+        task_id="preprocess_video_data",
         python_callable=preprocess_video_data,
         provide_context=True,
     )
 
     trigger_analysis_task = TriggerDagRunOperator(
-        task_id='trigger_analysis_dag',
-        trigger_dag_id='analysis_dag',
+        task_id="trigger_analysis_dag",
+        trigger_dag_id="analysis_dag",
+        conf={
+            "processed_file_path": '{{ ti.xcom_pull(task_ids="preprocess_video_data", key="processed_file_path") }}'
+        },
     )
 
     preprocess_video_task >> trigger_analysis_task
-
