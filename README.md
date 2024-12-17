@@ -37,8 +37,8 @@ project/
 
 ### **1. Clone the Repository**
 ```bash
-git clone https://github.com/your-username/your-repository-name.git
-cd your-repository-name
+git clone https://github.com/hamzaben404/YouTube-Data-Analysis-with-Airflow
+cd YouTube-Data-Analysis-with-Airflow
 ```
 
 ### **2. Install Dependencies**
@@ -52,7 +52,7 @@ pip install -r requirements.txt
 1. Make sure Docker is installed on your machine.
 2. Start Airflow using Docker Compose:
    ```bash
-   docker-compose up
+   docker-compose up --build
    ```
 3. Access the Airflow web interface at [http://localhost:8080](http://localhost:8080).
 
